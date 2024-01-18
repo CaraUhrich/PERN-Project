@@ -45,7 +45,7 @@ async function createTables () {
             id SERIAL PRIMARY KEY,
             name varchar(25) NOT NULL,
             username varchar(25) UNIQUE NOT NULL,
-            password varchar(25) NOT NULL
+            password TEXT NOT NULL
         );
         CREATE TABLE paintings (
             id SERIAL PRIMARY KEY,

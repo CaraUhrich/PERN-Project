@@ -6,5 +6,8 @@ router.get('/health', (req, res, next) => {
 })
 
 router.use('/paintings', require('./paintings.js'))
+router.use('/artists', require('./artists.js'))
+router.use('/collections', require('./collections.js'))
+router.use('/users', require('./users.js'))
 
 module.exports = router
