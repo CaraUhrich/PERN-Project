@@ -17,22 +17,6 @@ async function createUser ({ name, username, password }) {
     }
 }
 
-// async function updateToken (token, id) {
-//     try {
-//         const { 
-//             rows: [user]
-//          } = await client.query(`
-//             UPDATE users
-//             SET token = ${token}
-//             WHERE id = ${id}
-//             RETURNING *;
-//         `)
-//         return user
-//     } catch (error) {
-//         throw error
-//     }
-// }
-
 async function getUserByUsername (username) {
     try {
         const {

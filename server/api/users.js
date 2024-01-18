@@ -8,6 +8,19 @@ const SALT = 10
 
 const { createUser, getUserByUsername } = require('../helperFns/usershelper')
 
+//GET current user
+router.get('/', async (req, res, next) => {
+    try {
+        const token = req.get('Authorization').split(' ')[1]
+        const user = jwt.verify(token, JWT_SECRET)
+        
+        delete user.iat
+        res.send(user)
+    } catch (error) {
+        next(error)
+    }
+})
+
 //POST create a new user
 router.post('/register', async (req, res, next) => {
     try {
