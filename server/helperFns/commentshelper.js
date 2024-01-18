@@ -19,7 +19,7 @@ async function createComment ({ title, content, lastUpdated, edited, paintingId,
         const {
             rows: [comment],
         } = await client.query(`
-            INSERT INTO saves(title, content, "lastUpdate", edited, "paintingId", "userId")
+            INSERT INTO comments(title, content, "lastUpdated", edited, "paintingId", "userId")
             VALUES($1, $2, $3, $4, $5, $6)
             RETURNING *;
         `, [title, content, lastUpdated, edited, paintingId, userId]
@@ -62,12 +62,14 @@ async function updateComment(id, fields) {
 
 async function deleteComment (id) {
     try {
-        const { rows } = await client.query(`
+        const { 
+            rows: [comment]
+        } = await client.query(`
             DELETE FROM comments
             WHERE id = ${id}
             RETURNING *;
         `)
-        return rows
+        return comment
     } catch (error) {
         throw error
     }

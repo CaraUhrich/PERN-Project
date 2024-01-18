@@ -62,10 +62,8 @@ router.post('/login', async (req, res, next) => {
 			httpOnly: true,
 			signed: true,
 		});
-
-        const info = jwt.verify(token, JWT_SECRET)
         
-        res.send({ info, token, user })
+        res.send({ token, user })
         }
     } catch (error) {
         next(error)

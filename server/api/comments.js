@@ -16,7 +16,7 @@ router.get('/:paintingId', async (req, res, next) => {
 })
 
 //POST create comment
-router.post('/', async (req, res, next) => {
+router.post('/', authRequired, async (req, res, next) => {
     try {
         const { title, content, lastUpdated, edited, paintingId, userId } = req.body
 
@@ -29,7 +29,25 @@ router.post('/', async (req, res, next) => {
 })
 
 //PUT update comment
+router.put('/:id', authRequired, async (req, res, next) => {
+    try {
+        const comment = await updateComment(req.params.id, req.body)
+
+        res.send(comment)
+    } catch (error) {
+        next(error)
+    }
+})
 
 //DELETE delete comment
+router.delete('/:id', authRequired, async (req, res, next) => {
+    try {
+        const comment = await deleteComment(req.params.id)
+
+        res.send(comment)
+    } catch (error) {
+        next(error)
+    }
+})
 
 module.exports = router
