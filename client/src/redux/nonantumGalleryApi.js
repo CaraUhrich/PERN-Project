@@ -50,7 +50,7 @@ export const nonantumGalleryApi = createApi({
             providesTags: ['User', 'Saves'] 
         }),
         getCurrentUser: builder.query({
-            query: (token) = > ({
+            query: (token) => ({
                 url: '/users',
                 headers: {
                     Authorization: `Bearer ${token}`

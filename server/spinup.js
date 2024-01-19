@@ -12,6 +12,9 @@ const { COOKIE_SECRET } = require('./secrets')
 const cookieParser = require('cookie-parser')
 app.use(cookieParser(COOKIE_SECRET))
 
+const cors = require('cors')
+app.use(cors())
+
 const client = require('./db/client')
 client.connect()
 
