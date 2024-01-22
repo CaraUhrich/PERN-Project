@@ -2,6 +2,7 @@ import './App.css'
 import Navbar from './components/Navbar'
 import { Routes, Route } from 'react-router-dom'
 import Users from './components/Users'
+import Home from './components/Home'
 
 function App() {
   
@@ -10,7 +11,7 @@ function App() {
       <Navbar />
       <div>
         <Routes>
-          <Route path='/' element={<p>Paintings</p>} />
+          <Route path='/' element={<Home />} />
           <Route path='/paintings/:id' element={<p>Single Painting</p>} />
           <Route path='/artists' element={<p>Artists</p>} />
           <Route path='/artints/:id' element={<p>Single Artist</p>} />
