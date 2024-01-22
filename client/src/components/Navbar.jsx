@@ -14,23 +14,25 @@ export default function Navbar () {
         if (location.pathname === '/users/account') {
             navigate('/')
         }
+
+        console.log('logging out')
         dispatch(updateToken(''))
-        dispatch(nonantumGalleryApi.util.invalidatetags(['User']))
+        dispatch(nonantumGalleryApi.util.invalidateTags('User'))
     }
 
     return(<nav>
         <h1>Nonantum Gallery</h1>
         <div className='links'>
-            <Link to={'/paintings'}>Paintings</Link>
+            <Link to={'/'}>Paintings</Link>
             <Link to={'/artists'}>Artists</Link>
             <Link to={'/collections'}>Collections</Link>
             {
                 token ?
                 <Link to={'/users/account'}>Account</Link> :
-                <Link to={'/users/login'}>Login</Link>
+                <Link to={'/users'}>Login</Link>
             }
             {token && (
-                <a onClick={() => logout}>Logout</a>
+                <a onClick={() => logout()}>Logout</a>
             )}
         </div>
     </nav>)

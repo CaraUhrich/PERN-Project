@@ -145,6 +145,7 @@ export const {
     useCreateSaveMutation,
     useDeleteSaveMutation,
     useCreateUserMutation,
+    useLoginUserMutation,
     useCreateCommentMutation,
     useUpdateCommentMutation,
     useDeleteCommentMutation
