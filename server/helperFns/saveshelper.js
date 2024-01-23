@@ -13,6 +13,19 @@ async function getSavesbyUser (userId) {
     }
 }
 
+async function getSavesbyPainting (paintingId) {
+    try {
+        const { rows } = await client.query(`
+            SELECT *
+            FROM saves
+            WHERE "paintingId" =${paintingId};
+        `)
+        return rows
+    } catch (error) {
+        throw error
+    }
+}
+
 async function createSave ({ paintingId, userId }) {
     try {
         const {
@@ -42,4 +55,4 @@ async function deleteSave (id) {
     }
 }
 
-module.exports = { getSavesbyUser, createSave, deleteSave }
+module.exports = { getSavesbyUser, getSavesbyPainting, createSave, deleteSave }

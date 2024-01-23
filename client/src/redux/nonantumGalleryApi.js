@@ -18,12 +18,12 @@ export const nonantumGalleryApi = createApi({
             query: (id) => `/paintings${id}`,
             providesTags: ['Comments', 'Saves']
         }),
-        getPaintingsByArtist: builder.query({
-            query: (artistId) => `/paintings/artist/${artistId}`
-        }),
-        getPaintingsByCollection: builder.query({
-            query: (collectionId) => `/collection/${collectionId}`
-        }),
+        // getPaintingsByArtist: builder.query({
+        //     query: (artistId) => `/paintings/artist/${artistId}`
+        // }),
+        // getPaintingsByCollection: builder.query({
+        //     query: (collectionId) => `/collection/${collectionId}`
+        // }),
         getArtists: builder.query({
             query: () => '/artists'
         }),
@@ -36,10 +36,10 @@ export const nonantumGalleryApi = createApi({
         getSingleCollection: builder.query({
             query: (id) => `/collections/${id}`
         }),
-        getPaintingComments: builder.query({
-            query: (paintingId) => `/comments/${[paintingId]}`,
-            providesTags: ['Comments']
-        }),
+        // getPaintingComments: builder.query({
+        //     query: (paintingId) => `/comments/${[paintingId]}`,
+        //     providesTags: ['Comments']
+        // }),
         getUserSaves: builder.query({
             query: (userId, token) => ({
                 url: `/saves/${userId}`,
@@ -133,13 +133,13 @@ export const nonantumGalleryApi = createApi({
 export const {
     useGetPaintingsQuery,
     useGetSinglePaintingQuery,
-    useGetPaintingsByArtistQuery,
-    useGetPaintingsByCollectionQuery,
+    // useGetPaintingsByArtistQuery,
+    // useGetPaintingsByCollectionQuery,
     useGetArtistsQuery,
     useGetSingleArtistQuery,
     useGetCollectionsQuery,
     useGetSingleCollectionQuery,
-    useGetPaintingCommentsQuery,
+    // useGetPaintingCommentsQuery,
     useGetUserSavesQuery,
     useGetCurrentUserQuery,
     useCreateSaveMutation,

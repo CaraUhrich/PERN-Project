@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router()
 const { getAllPaintings, getPaintingbyId, getPaintingsbyArtist, getPaintingsbyCollection } = require('../helperFns/paintingshelper')
+const { getCommentsbyPainting } = require('../helperFns/commentshelper')
+const { getSavesbyPainting } = require('../helperFns/saveshelper')
 
 //get all
 router.get('/', async (req, res, next) => {
@@ -16,6 +18,9 @@ router.get('/', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
     try {
         const painting = await getPaintingbyId(req.params.id)
+        painting.comments = await getCommentsbyPainting(req.params.id)
+        painting.saves = await getSavesbyPainting(req.params.id)
+
         res.send(painting)
     } catch (error) {
         next(error)

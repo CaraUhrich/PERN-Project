@@ -5,6 +5,8 @@ import Users from './components/Users'
 import Home from './components/Home'
 import Artists from './components/Artists'
 import Artist from './components/Artist'
+import Collection from './components/Collection'
+import Collections from './components/Collections'
 
 function App() {
   
@@ -17,8 +19,8 @@ function App() {
           <Route path='/paintings/:id' element={<p>Single Painting</p>} />
           <Route path='/artists' element={<Artists />} />
           <Route path='/artists/:id' element={<Artist size='large' />} />
-          <Route path='/collections' element={<p>Collections</p>} />
-          <Route path='/collections/:id' element={<p>Single Collection</p>} />
+          <Route path='/collections' element={<Collections />} />
+          <Route path='/collections/:id' element={<Collection size='large' />} />
           <Route path='/users' element={<Users />} />
           <Route path='/users/account' element={<p>Account</p>} />
           <Route path='paintings/:search' element={<p>Filter</p>} />

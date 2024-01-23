@@ -2,7 +2,6 @@ import { useGetArtistsQuery } from "../redux/nonantumGalleryApi"
 import Artist from "./Artist"
 
 export default function Artists () {
-
     const { data = {}, isError, error, isLoading } = useGetArtistsQuery()
 
     if (isLoading) {
@@ -11,8 +10,6 @@ export default function Artists () {
     if (isError) {
         return <div>Error loading artists: {error.data.message}</div>
     }
-
-    console.log(data)
 
     return (<div className="category-container">
         {
