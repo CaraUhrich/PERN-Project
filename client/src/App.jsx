@@ -7,6 +7,8 @@ import Artists from './components/Artists'
 import Artist from './components/Artist'
 import Collection from './components/Collection'
 import Collections from './components/Collections'
+import Filter from './components/Filter'
+import Account from './components/Account'
 
 function App() {
   
@@ -22,8 +24,8 @@ function App() {
           <Route path='/collections' element={<Collections />} />
           <Route path='/collections/:id' element={<Collection size='large' />} />
           <Route path='/users' element={<Users />} />
-          <Route path='/users/account' element={<p>Account</p>} />
-          <Route path='paintings/:search' element={<p>Filter</p>} />
+          <Route path='/users/account' element={<Account />} />
+          <Route path='paintings/:search' element={<Filter />} />
         </Routes>
       </div>
     </>

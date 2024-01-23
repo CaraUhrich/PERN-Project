@@ -15,7 +15,7 @@ export const nonantumGalleryApi = createApi({
             query: () => '/paintings'
         }),
         getSinglePainting: builder.query({
-            query: (id) => `/paintings${id}`,
+            query: (id) => `/paintings/${id}`,
             providesTags: ['Comments', 'Saves']
         }),
         // getPaintingsByArtist: builder.query({
@@ -41,8 +41,8 @@ export const nonantumGalleryApi = createApi({
         //     providesTags: ['Comments']
         // }),
         getUserSaves: builder.query({
-            query: (userId, token) => ({
-                url: `/saves/${userId}`,
+            query: (token) => ({
+                url: `/saves`,
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

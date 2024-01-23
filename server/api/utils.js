@@ -12,8 +12,10 @@ const authRequired = (req, res, next) => {
             message: 'Unauthorized',
           })
           throw new Error('Token invalid')
+    } finally {
+       next()
     }
-    next()
+    
 }
 
 module.exports = { authRequired }

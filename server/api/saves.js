@@ -1,13 +1,18 @@
 const express = require('express')
 const router = express.Router()
+const jwt = require('jsonwebtoken')
+const { JWT_SECRET } = require('../secrets')
 
 const { authRequired } = require('./utils')
 const { getSavesbyUser, createSave, deleteSave } = require('../helperFns/saveshelper')
 
 //GET saves by user
-router.get('/:userId', authRequired, async (req, res, next) => {
+router.get('/', authRequired, async (req, res, next) => {
     try {
-        const saves = await getSavesbyUser(req.params.userId)
+        const token = req.get('Authorization').split(' ')[1]
+        const user = jwt.verify(token, JWT_SECRET)
+
+        const saves = await getSavesbyUser(user.id)
         
         res.send(saves)
     } catch (error) {
