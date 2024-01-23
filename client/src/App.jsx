@@ -3,6 +3,8 @@ import Navbar from './components/Navbar'
 import { Routes, Route } from 'react-router-dom'
 import Users from './components/Users'
 import Home from './components/Home'
+import Artists from './components/Artists'
+import Artist from './components/Artist'
 
 function App() {
   
@@ -13,8 +15,8 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/paintings/:id' element={<p>Single Painting</p>} />
-          <Route path='/artists' element={<p>Artists</p>} />
-          <Route path='/artints/:id' element={<p>Single Artist</p>} />
+          <Route path='/artists' element={<Artists />} />
+          <Route path='/artists/:id' element={<Artist size='large' />} />
           <Route path='/collections' element={<p>Collections</p>} />
           <Route path='/collections/:id' element={<p>Single Collection</p>} />
           <Route path='/users' element={<Users />} />

@@ -25,6 +25,12 @@ router.get('/', async (req, res, next) => {
 router.post('/register', async (req, res, next) => {
     try {
         const { name, username, password } = req.body
+
+        if (!username) {
+            throw new Error('username is required to create an account')
+        } else if (!password) {
+            throw new Error('password is required to create an account')
+        }
         
         const hashedPW = await bcrypt.hash(password, SALT)
 
@@ -53,6 +59,12 @@ router.post('/login', async (req, res, next) => {
         const validPassword = await bcrypt.compare(password, user.password)
 
         delete user.password
+
+        if (!user) {
+            throw new Error('invalid username')
+        } else if (!validPassword) {
+            throw new Error('invalid password')
+        }
 
         if (validPassword) {
             const token = jwt.sign(user, JWT_SECRET)

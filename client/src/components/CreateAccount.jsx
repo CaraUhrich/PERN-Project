@@ -5,8 +5,8 @@ import { useState, useEffect } from 'react'
 import { useCreateUserMutation } from '../redux/nonantumGalleryApi'
 
 export default function CreateAccount () {
-    const navigate = useNavigate()
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const [name, setName] = useState('')
     const [username, setUsername] = useState('')
@@ -27,7 +27,7 @@ export default function CreateAccount () {
     useEffect(() => {
         if (isSuccess) {
             dispatch(updateToken(data.token))
-            navigate('/account')
+            navigate('users/account')
         }
     }, [isSuccess])
 

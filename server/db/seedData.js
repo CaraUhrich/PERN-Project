@@ -14,9 +14,10 @@ const collections = [
 
 //Artists require: name, bio, image. may contain: email, link
 const artists = [
-    {name: 'Cara Uhrich', bio: 'Pandemic Artist!', image: 'https://imgur.com/NzNHEhL', email: 'carauhrich@gmail.com'},
+    {name: 'Cara Uhrich', bio: 'Pandemic Artist!', image: 'https://i.imgur.com/NzNHEhL.jpg', email: 'carauhrich@gmail.com'},
     {name: 'Kirsten Brink', bio: 'Chaos!', image: 'placeholder', link: 'https://www.instagram.com/chaosbykay?igsh=OHI3eGJ2YTR4dmhk'},
     {name: 'Ryanne McEvoy', bio: 'Follow the Flow', image: 'placeholder'}
+    {name: 'Jenny Wicks', bio: 'Exciting!', image: 'placeholder'}
 ]
 
 //Paintings require: Title, image, description, available, artistId. May contain: collectionId

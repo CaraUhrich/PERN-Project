@@ -33,7 +33,7 @@ export default function Home () {
         </form>
         {
             isSuccess ?
-                <RenderPaintings paintings={data} type="large" />
+                <RenderPaintings paintings={data} size="large" />
                 : <div>Error: {error.data.message}</div>
         }
     </> )

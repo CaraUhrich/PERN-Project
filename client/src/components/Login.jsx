@@ -26,7 +26,7 @@ export default function Login () {
     useEffect(() => {
         if (isSuccess) {
             dispatch(updateToken(data.token))
-            navigate('/account')
+            navigate('/users/account')
         }
     }, [isSuccess])
 
