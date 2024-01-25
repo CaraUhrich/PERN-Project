@@ -16,14 +16,8 @@ export const nonantumGalleryApi = createApi({
         }),
         getSinglePainting: builder.query({
             query: (id) => `/paintings/${id}`,
-            providesTags: ['Comments', 'Saves']
+            providesTags: ['Saves']
         }),
-        // getPaintingsByArtist: builder.query({
-        //     query: (artistId) => `/paintings/artist/${artistId}`
-        // }),
-        // getPaintingsByCollection: builder.query({
-        //     query: (collectionId) => `/collection/${collectionId}`
-        // }),
         getArtists: builder.query({
             query: () => '/artists'
         }),
@@ -36,10 +30,10 @@ export const nonantumGalleryApi = createApi({
         getSingleCollection: builder.query({
             query: (id) => `/collections/${id}`
         }),
-        // getPaintingComments: builder.query({
-        //     query: (paintingId) => `/comments/${[paintingId]}`,
-        //     providesTags: ['Comments']
-        // }),
+        getPaintingComments: builder.query({
+            query: (paintingId) => `/comments/${[paintingId]}`,
+            providesTags: ['Comments']
+        }),
         getUserSaves: builder.query({
             query: (token) => ({
                 url: `/saves`,
@@ -59,23 +53,17 @@ export const nonantumGalleryApi = createApi({
             providesTags: ['User']
         }),
         createSave: builder.mutation({
-            query: (data, token) => ({
+            query: (data) => ({
                 url: '/saves',
                 method: 'POST',
-                headers: {
-                    Authorization: `Bearer ${token}`
-                },
                 body: {...data}
             }),
             invalidatesTags: ['Saves']
         }),
         deleteSave: builder.mutation({
-            query: (id, token) => ({
+            query: (id) => ({
                 url: `/saves/${id}`,
-                method: 'DELETE',
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
+                method: 'DELETE'
             }),
             invalidatesTags: ['Saves']
         }),
@@ -96,34 +84,25 @@ export const nonantumGalleryApi = createApi({
             invalidatesTags: ['User']
         }),
         createComment: builder.mutation({
-            query: (data, token) => ({
+            query: (data) => ({
                 url: '/comments',
                 method: 'POST',
                 body: {...data},
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
             }),
             invalidatesTags: ['Comments']
         }),
         updateComment: builder.mutation({
-            query: (id, data, token) => ({
+            query: (id, data) => ({
                 url: `/comments/${id}`,
                 method: 'PUT',
                 body: {...data},
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
             }),
             invalidatesTags: ['Comments']
         }),
         deleteComment: builder.mutation({
-            query: (id, token) => ({
+            query: (id) => ({
                 url: `/comments/${id}`,
                 method: 'DELETE',
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
             }),
             invalidatesTags: ['Comments']
         })
@@ -133,13 +112,11 @@ export const nonantumGalleryApi = createApi({
 export const {
     useGetPaintingsQuery,
     useGetSinglePaintingQuery,
-    // useGetPaintingsByArtistQuery,
-    // useGetPaintingsByCollectionQuery,
     useGetArtistsQuery,
     useGetSingleArtistQuery,
     useGetCollectionsQuery,
     useGetSingleCollectionQuery,
-    // useGetPaintingCommentsQuery,
+    useGetPaintingCommentsQuery,
     useGetUserSavesQuery,
     useGetCurrentUserQuery,
     useCreateSaveMutation,

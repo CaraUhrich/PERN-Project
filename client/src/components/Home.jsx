@@ -34,7 +34,7 @@ export default function Home () {
         {
             isSuccess ?
                 <RenderPaintings paintings={data} size="large" />
-                : <div>Error: {error.data.message}</div>
+                : <div>Error: {error.error}</div>
         }
     </> )
 }

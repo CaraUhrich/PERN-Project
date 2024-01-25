@@ -13,7 +13,7 @@ const authRequired = (req, res, next) => {
           })
           throw new Error('Token invalid')
     } finally {
-       next()
+        next()
     }
     
 }

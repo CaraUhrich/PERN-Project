@@ -12,6 +12,11 @@ const { createUser, getUserByUsername } = require('../helperFns/usershelper')
 router.get('/', async (req, res, next) => {
     try {
         const token = req.get('Authorization').split(' ')[1]
+        
+        if (!token) {
+            throw new Error('User is not logged in')
+        }
+
         const user = jwt.verify(token, JWT_SECRET)
         
         delete user.iat

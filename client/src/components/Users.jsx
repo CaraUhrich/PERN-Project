@@ -8,7 +8,7 @@ export default function Users () {
     const token = useSelector((it) => it.state.token)
 
     if (token) {
-        navigate('users/account')
+        navigate('/users/account')
     }
 
     return(<>
