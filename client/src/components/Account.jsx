@@ -20,7 +20,7 @@ export default function Account () {
     }
 
     async function removeSave(saveId) {
-        await deleteSave(saveId)
+        await deleteSave(saveId, token)
     }
 
     return (<div>

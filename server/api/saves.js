@@ -3,6 +3,7 @@ const router = express.Router()
 const jwt = require('jsonwebtoken')
 const { JWT_SECRET } = require('../secrets')
 
+const { authRequired } = require('./utils')
 const { getSavesbyUser, createSave, deleteSave } = require('../helperFns/saveshelper')
 
 //GET saves by user
@@ -20,7 +21,7 @@ router.get('/', async (req, res, next) => {
 })
 
 //POST create save
-router.post('/', async (req, res, next) => {
+router.post('/', authRequired, async (req, res, next) => {
     try {
         const { paintingId, userId } = req.body
 
@@ -33,7 +34,7 @@ router.post('/', async (req, res, next) => {
 })
 
 //DELETE remove save
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', authRequired, async (req, res, next) => {
     try {
         const save = await deleteSave(req.params.id)
 

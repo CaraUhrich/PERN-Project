@@ -1,41 +1,64 @@
 import { useParams } from "react-router-dom"
 import { useSelector } from "react-redux"
 import { useGetCurrentUserQuery, useGetPaintingCommentsQuery, useCreateCommentMutation, useDeleteCommentMutation, useUpdateCommentMutation } from "../redux/nonantumGalleryApi"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export default function Comments () {
     const params = useParams()
     const paintingId = params.id
     const token = useSelector((it) => it.state.token)
+    let hasComments = false
 
+    const [updating, setUpdating] = useState(false)
     const [title, setTitle] = useState('')
     const [content, setContent] = useState('')
-    const [commentId, setCommentId] = useState(null)
+    const [commentId, setCommentId] = useState(0)
+    const [user, setUser] = useState()
 
     const comments = useGetPaintingCommentsQuery(paintingId)
-    const user = useGetCurrentUserQuery(token)
     const [createComment, commentCreation] = useCreateCommentMutation()
     const [updateComment, commentUpdate] = useUpdateCommentMutation()
     const [deleteComment, commentDeletion] = useDeleteCommentMutation()
+    
+    async function fetchUser() {
+        try {
+            const res = await fetch('http://localhost:8080/api/users', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                } 
+            })
+            const data = await res.json()
+            setUser(data)
+        } catch (error) {
+            console.error(error)
+        }
+    }
+    
+    useEffect(() => {
+        fetchUser()
+    }, [token])
 
-    if (user.isLoading || comments.isLoading || commentCreation.isLoading || commentDeletion.isLoading || commentUpdate.isLoading) {
+    if (comments.isLoading || commentCreation.isLoading || commentDeletion.isLoading || commentUpdate.isLoading) {
         return <div>Loading...</div>
     }
 
-    if(commentUpdate.isSuccess) {
-        console.log(commentUpdate)
+    if (comments.isSuccess && comments.data.length) {
+        hasComments = true
     }
+
+    console.log('render', commentId, content, title)
 
     async function create () {
         try {
             const lastUpdated = new Date()
-            const comment = { content, lastUpdated, edited: false, paintingId, userId: user.data.id}
+            const comment = { content, lastUpdated, edited: false, paintingId, userId: user.id}
             if (title) {
                 comment.title = title
             }
 
-            console.log(comment)
-            await createComment(comment)
+            console.log('create', comment)
+            await createComment(comment, token)
         } catch (error) {
             console.error(error)
         }
@@ -49,34 +72,42 @@ export default function Comments () {
         }
     }
 
-    async function update (id) {
+    async function update () {
         try {
             const lastUpdated = new Date()
             const comment = { content, lastUpdated, edited: true }
             if (title) {
                 comment.title = title
             }
+            comment.id = commentId
 
-            console.log(comment)
+            console.log('update', comment)
 
-            const edited = await updateComment(id, comment)
-            console.log(edited)
+            const edited = await updateComment(comment, token)
+            console.log('response', edited)
         } catch (error) {
             console.error(error)
         }
     }
 
     function startUpdate (id) {
-        const comment = comments.data.find((comment) => comment.id === id)
         setCommentId(id)
+        setUpdating(true)
+
+        const comment = comments.data.find((commentObj) => commentObj.id === id)
+        console.log(comment)
+
         setContent(comment.content)
         if (comment.title) {
             setTitle(comment.title)
+        } else {
+            setTitle('')
         }
     }
 
     function endUpdate () {
-        setCommentId(null)
+        setUpdating(false)
+        setCommentId(0)
         setContent('')
         setTitle('')
     }
@@ -84,50 +115,61 @@ export default function Comments () {
     function handleSubmit (event) {
         event.preventDefault()
 
-        if (commentId) {
-            update(commentId)
+        if (updating) {
+            update()
         } else {
             create()
         }
+
+        endUpdate()
+    }
+
+    function parseDate(timestamp) {
+        return timestamp.slice(11, 16) + ' on ' + timestamp.slice(0, 10)
     }
 
     return (<div>
-        <form title="comment" onSubmit={handleSubmit}>
-            {commentId ?
-                <>
-                    <h3>Update Your Comment</h3>
-                    <button onClick={() => endUpdate()}>Start a New Comment</button>
-                    <button type="submit">Save Changes</button>
-                </>
-                : <>
-                    <h3>Leave a comment</h3>
-                    <button type="submit">Submit</button>
-                </>
+        {token && (<div className="comment-form-container">
+            {updating ?
+                    <>
+                        <h3>Update Your Comment</h3>
+                        <button onClick={() => endUpdate()}>Start a New Comment</button>
+                    </>
+                    : <>
+                        <h3>Leave a comment</h3>
+                    </>
             }
-            <label>Title:
-                <input
-                    value={title}
-                    onChange={(event) => {setTitle(event.target.value)}}
-                />
-            </label>
-            <label>Comment:
-                <input
-                    value={content}
-                    onChange={(event) => {setContent(event.target.value)}}
-                />
-            </label>
-        </form>
-        {comments.data.length && (
+            <form title="comment" onSubmit={handleSubmit}>
+
+                <label>Title:
+                    <input
+                        value={title}
+                        onChange={(event) => {setTitle(event.target.value)}}
+                    />
+                </label>
+                <label>Comment:
+                    <input
+                        value={content}
+                        onChange={(event) => {setContent(event.target.value)}}
+                    />
+                </label>
+                {updating ?
+                    <button type="submit">Save Changes</button>
+                    : <button type="submit">Submit</button>
+                }
+            </form>
+        </div>)}
+        {hasComments && (
             <div className="comment-containter">
                 {comments.data.map((comment) => {
                     return (<div className="comment" key={comment.id}>
                         {comment.title && <h5>{comment.title}</h5>}
                         <p>{comment.content}</p>
                         {comment.edited ?
-                            <p>last edited: {comment.lastUpdated}</p>
-                            : <p>posted: {comment.lastUpdated}</p>
+                            <p>last edited: {parseDate(comment.lastUpdated)}</p>
+                            : <p>posted: {parseDate(comment.lastUpdated)}</p>
                         }
-                        {comment.userId === user.data.id && (<>
+                        {comment.userId === user.id && (<>
                             <button onClick={() => startUpdate(comment.id)}>Update</button>
                             <button onClick={() => remove(comment.id)}>Delete</button>
                         </>)}

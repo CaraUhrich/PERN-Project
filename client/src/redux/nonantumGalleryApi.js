@@ -53,17 +53,23 @@ export const nonantumGalleryApi = createApi({
             providesTags: ['User']
         }),
         createSave: builder.mutation({
-            query: (data) => ({
+            query: (data, token) => ({
                 url: '/saves',
                 method: 'POST',
-                body: {...data}
+                body: {...data},
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
             }),
             invalidatesTags: ['Saves']
         }),
         deleteSave: builder.mutation({
-            query: (id) => ({
+            query: (id, token) => ({
                 url: `/saves/${id}`,
-                method: 'DELETE'
+                method: 'DELETE',
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
             }),
             invalidatesTags: ['Saves']
         }),
@@ -84,25 +90,34 @@ export const nonantumGalleryApi = createApi({
             invalidatesTags: ['User']
         }),
         createComment: builder.mutation({
-            query: (data) => ({
+            query: (data, token) => ({
                 url: '/comments',
                 method: 'POST',
                 body: {...data},
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
             }),
             invalidatesTags: ['Comments']
         }),
         updateComment: builder.mutation({
-            query: (id, data) => ({
-                url: `/comments/${id}`,
+            query: (data, token) => ({
+                url: `/comments/${data.id}`,
                 method: 'PUT',
                 body: {...data},
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
             }),
             invalidatesTags: ['Comments']
         }),
         deleteComment: builder.mutation({
-            query: (id) => ({
+            query: (id, token) => ({
                 url: `/comments/${id}`,
                 method: 'DELETE',
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
             }),
             invalidatesTags: ['Comments']
         })

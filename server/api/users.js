@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const { authRequired } = require('./utils')
 
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
@@ -9,7 +10,7 @@ const SALT = 10
 const { createUser, getUserByUsername } = require('../helperFns/usershelper')
 
 //GET current user
-router.get('/', async (req, res, next) => {
+router.get('/', authRequired, async (req, res, next) => {
     try {
         const token = req.get('Authorization').split(' ')[1]
         

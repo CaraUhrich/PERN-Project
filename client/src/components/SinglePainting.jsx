@@ -1,5 +1,6 @@
 import { useParams, useNavigate, Link } from "react-router-dom"
 import { useSelector } from "react-redux"
+import { useEffect, useState } from "react"
 import { useGetSinglePaintingQuery, useCreateSaveMutation, useGetCurrentUserQuery, useDeleteSaveMutation } from "../redux/nonantumGalleryApi"
 import Comments from "./Comments"
 
@@ -7,24 +8,45 @@ export default function SinglePainting () {
     const navigate = useNavigate()
     const { id } = useParams()
     const token = useSelector((it) => it.state.token)
+
+    const [user, setUser] = useState()
     let isSaved = false
     let saveId = false
 
     const painting = useGetSinglePaintingQuery(id)
-    const user = useGetCurrentUserQuery(token)
+    // const user = useGetCurrentUserQuery(token)
     const [createSave, saveCreation] = useCreateSaveMutation()
     const [deleteSave, saveDeletion] = useDeleteSaveMutation()
 
-    if (user.isSuccess && painting.isSuccess) {
+    async function fetchUser() {
+        try {
+            const res = await fetch('http://localhost:8080/api/users', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                } 
+            })
+            const data = await res.json()
+            setUser(data)
+        } catch (error) {
+            console.error(error)
+        }
+    }
+    
+    useEffect(() => {
+        fetchUser()
+    }, [token])
+
+    if (token && painting.isSuccess) {
         painting.data.saves.forEach(save => {
-            if(save.userId === user.data.id) {
+            if(save.userId === user.id) {
                 isSaved = true
                 saveId = save.id
             }
         })
     }    
 
-    if (painting.isLoading || user.isLoading || saveCreation.isLoading || saveDeletion.isLoading) {
+    if (painting.isLoading || saveCreation.isLoading || saveDeletion.isLoading) {
         return <div>Loading...</div>
     }
 
@@ -34,7 +56,7 @@ export default function SinglePainting () {
 
     async function addSave () {
         try {
-            await createSave({ paintingId: id, userId: user.data.id })
+            await createSave({ paintingId: id, userId: user.id }, token)
         } catch (error) {
             console.error(error)
         }
@@ -42,7 +64,7 @@ export default function SinglePainting () {
 
     async function unSave () {
         try {
-            await deleteSave(saveId)
+            await deleteSave(saveId, token)
         } catch (error) {
             console.error(error) 
         }

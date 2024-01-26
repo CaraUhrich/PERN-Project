@@ -5,17 +5,16 @@ const authRequired = (req, res, next) => {
     const token = req.get('Authorization').split(' ')[1]
 
     try {
-        jwt.verify(token, JWT_SECRET)
+        const user = jwt.verify(token, JWT_SECRET)
+        console.log(user)
+        next()
     } catch (error) {
         res.status(401).send({
             loggedIn: false,
             message: 'Unauthorized',
           })
           throw new Error('Token invalid')
-    } finally {
-        next()
     }
-    
 }
 
 module.exports = { authRequired }
