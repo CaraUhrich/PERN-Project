@@ -1,13 +1,15 @@
 import { useParams } from "react-router-dom"
 import { useSelector } from "react-redux"
-import { useGetCurrentUserQuery, useGetPaintingCommentsQuery, useCreateCommentMutation, useDeleteCommentMutation, useUpdateCommentMutation } from "../redux/nonantumGalleryApi"
-import { useEffect, useState } from "react"
+import { useGetPaintingCommentsQuery, useCreateCommentMutation, useDeleteCommentMutation, useUpdateCommentMutation } from "../redux/nonantumGalleryApi"
+import { useEffect, useRef, useState } from "react"
 
 export default function Comments () {
     const params = useParams()
     const paintingId = params.id
     const token = useSelector((it) => it.state.token)
     let hasComments = false
+    const form = useRef()
+    const dateType = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'}
 
     const [updating, setUpdating] = useState(false)
     const [title, setTitle] = useState('')
@@ -47,18 +49,17 @@ export default function Comments () {
         hasComments = true
     }
 
-    console.log('render', commentId, content, title)
+    console.log("comments", token)
 
     async function create () {
         try {
             const lastUpdated = new Date()
-            const comment = { content, lastUpdated, edited: false, paintingId, userId: user.id}
+            const comment = { content, lastUpdated, edited: false, paintingId, userId: user.id, token}
             if (title) {
                 comment.title = title
             }
 
-            console.log('create', comment)
-            await createComment(comment, token)
+            await createComment(comment)
         } catch (error) {
             console.error(error)
         }
@@ -66,7 +67,7 @@ export default function Comments () {
 
     async function remove (id) {
         try {
-            await deleteComment(id)
+            await deleteComment({ id, token })
         } catch (error) {
             console.error(error)
         }
@@ -75,7 +76,7 @@ export default function Comments () {
     async function update () {
         try {
             const lastUpdated = new Date()
-            const comment = { content, lastUpdated, edited: true }
+            const comment = { content, lastUpdated, edited: true, token }
             if (title) {
                 comment.title = title
             }
@@ -83,7 +84,7 @@ export default function Comments () {
 
             console.log('update', comment)
 
-            const edited = await updateComment(comment, token)
+            const edited = await updateComment(comment)
             console.log('response', edited)
         } catch (error) {
             console.error(error)
@@ -103,6 +104,7 @@ export default function Comments () {
         } else {
             setTitle('')
         }
+        form.current.focus()
     }
 
     function endUpdate () {
@@ -125,7 +127,9 @@ export default function Comments () {
     }
 
     function parseDate(timestamp) {
-        return timestamp.slice(11, 16) + ' on ' + timestamp.slice(0, 10)
+        const date = new Date(timestamp)
+
+        return date.toLocaleDateString(undefined, dateType)
     }
 
     return (<div>
@@ -143,6 +147,7 @@ export default function Comments () {
 
                 <label>Title:
                     <input
+                        ref={form}
                         value={title}
                         onChange={(event) => {setTitle(event.target.value)}}
                     />
@@ -164,7 +169,7 @@ export default function Comments () {
                 {comments.data.map((comment) => {
                     return (<div className="comment" key={comment.id}>
                         {comment.title && <h5>{comment.title}</h5>}
-                        <p>{comment.content}</p>
+                        <p>{comment.content}  -{comment.userName}</p>
                         {comment.edited ?
                             <p>last edited: {parseDate(comment.lastUpdated)}</p>
                             : <p>posted: {parseDate(comment.lastUpdated)}</p>

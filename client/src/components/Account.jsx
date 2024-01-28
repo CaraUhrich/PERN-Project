@@ -7,6 +7,8 @@ export default function Account () {
     const navigate = useNavigate()
     const token = useSelector((it) => it.state.token)
 
+    console.log(token)
+
     if (!token) {
         navigate('/users')
     }
@@ -20,7 +22,7 @@ export default function Account () {
     }
 
     async function removeSave(saveId) {
-        await deleteSave(saveId, token)
+        await deleteSave({ id: saveId, token })
     }
 
     return (<div>

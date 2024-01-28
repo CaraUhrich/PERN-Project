@@ -4,8 +4,9 @@ const util = require('./util')
 async function getCommentsbyPainting (paintingId) {
     try {
         const { rows } = await client.query(`
-            SELECT *
+            SELECT comments.*, users.name as "userName"
             FROM comments
+            INNER JOIN users ON comments."userId" = users.id
             WHERE "paintingId" =${paintingId};
         `)
         return rows

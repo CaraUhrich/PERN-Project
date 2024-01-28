@@ -3,10 +3,11 @@ const { JWT_SECRET } = require('../secrets')
 
 const authRequired = (req, res, next) => {
     const token = req.get('Authorization').split(' ')[1]
-
+    console.log(token)
+    
     try {
-        const user = jwt.verify(token, JWT_SECRET)
-        console.log(user)
+        jwt.verify(token, JWT_SECRET)
+        
         next()
     } catch (error) {
         res.status(401).send({

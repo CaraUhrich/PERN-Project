@@ -53,22 +53,22 @@ export const nonantumGalleryApi = createApi({
             providesTags: ['User']
         }),
         createSave: builder.mutation({
-            query: (data, token) => ({
+            query: (data) => ({
                 url: '/saves',
                 method: 'POST',
                 body: {...data},
                 headers: {
-                    Authorization: `Bearer ${token}`
+                    Authorization: `Bearer ${data.token}`
                 }
             }),
             invalidatesTags: ['Saves']
         }),
         deleteSave: builder.mutation({
-            query: (id, token) => ({
-                url: `/saves/${id}`,
+            query: (data) => ({
+                url: `/saves/${data.id}`,
                 method: 'DELETE',
                 headers: {
-                    Authorization: `Bearer ${token}`
+                    Authorization: `Bearer ${data.token}`
                 }
             }),
             invalidatesTags: ['Saves']
@@ -90,33 +90,33 @@ export const nonantumGalleryApi = createApi({
             invalidatesTags: ['User']
         }),
         createComment: builder.mutation({
-            query: (data, token) => ({
+            query: (data) => ({
                 url: '/comments',
                 method: 'POST',
                 body: {...data},
                 headers: {
-                    Authorization: `Bearer ${token}`
+                    Authorization: `Bearer ${data.token}`
                 }
             }),
             invalidatesTags: ['Comments']
         }),
         updateComment: builder.mutation({
-            query: (data, token) => ({
+            query: (data) => ({
                 url: `/comments/${data.id}`,
                 method: 'PUT',
                 body: {...data},
                 headers: {
-                    Authorization: `Bearer ${token}`
+                    Authorization: `Bearer ${data.token}`
                 }
             }),
             invalidatesTags: ['Comments']
         }),
         deleteComment: builder.mutation({
-            query: (id, token) => ({
-                url: `/comments/${id}`,
+            query: (data) => ({
+                url: `/comments/${data.id}`,
                 method: 'DELETE',
                 headers: {
-                    Authorization: `Bearer ${token}`
+                    Authorization: `Bearer ${data.token}`
                 }
             }),
             invalidatesTags: ['Comments']

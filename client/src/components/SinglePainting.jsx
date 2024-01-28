@@ -1,7 +1,7 @@
 import { useParams, useNavigate, Link } from "react-router-dom"
 import { useSelector } from "react-redux"
 import { useEffect, useState } from "react"
-import { useGetSinglePaintingQuery, useCreateSaveMutation, useGetCurrentUserQuery, useDeleteSaveMutation } from "../redux/nonantumGalleryApi"
+import { useGetSinglePaintingQuery, useCreateSaveMutation, useDeleteSaveMutation } from "../redux/nonantumGalleryApi"
 import Comments from "./Comments"
 
 export default function SinglePainting () {
@@ -9,12 +9,13 @@ export default function SinglePainting () {
     const { id } = useParams()
     const token = useSelector((it) => it.state.token)
 
+    console.log('single painting', token)
+
     const [user, setUser] = useState()
     let isSaved = false
     let saveId = false
 
     const painting = useGetSinglePaintingQuery(id)
-    // const user = useGetCurrentUserQuery(token)
     const [createSave, saveCreation] = useCreateSaveMutation()
     const [deleteSave, saveDeletion] = useDeleteSaveMutation()
 
@@ -56,7 +57,7 @@ export default function SinglePainting () {
 
     async function addSave () {
         try {
-            await createSave({ paintingId: id, userId: user.id }, token)
+            await createSave({ paintingId: id, userId: user.id, token })
         } catch (error) {
             console.error(error)
         }
@@ -64,7 +65,7 @@ export default function SinglePainting () {
 
     async function unSave () {
         try {
-            await deleteSave(saveId, token)
+            await deleteSave({ id: saveId, token })
         } catch (error) {
             console.error(error) 
         }
