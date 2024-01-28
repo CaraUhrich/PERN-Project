@@ -31,7 +31,8 @@ router.post('/', authRequired, async (req, res, next) => {
 //PUT update comment
 router.put('/:id', authRequired, async (req, res, next) => {
     try {
-        console.log(req.body)
+        delete req.body.token
+
         const comment = await updateComment(req.params.id, req.body)
 
         res.send(comment)

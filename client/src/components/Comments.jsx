@@ -15,7 +15,7 @@ export default function Comments () {
     const [title, setTitle] = useState('')
     const [content, setContent] = useState('')
     const [commentId, setCommentId] = useState(0)
-    const [user, setUser] = useState()
+    const [user, setUser] = useState({})
 
     const comments = useGetPaintingCommentsQuery(paintingId)
     const [createComment, commentCreation] = useCreateCommentMutation()
@@ -49,8 +49,6 @@ export default function Comments () {
         hasComments = true
     }
 
-    console.log("comments", token)
-
     async function create () {
         try {
             const lastUpdated = new Date()
@@ -76,16 +74,12 @@ export default function Comments () {
     async function update () {
         try {
             const lastUpdated = new Date()
-            const comment = { content, lastUpdated, edited: true, token }
+            const comment = { content, lastUpdated, edited: true, token, id: commentId }
             if (title) {
                 comment.title = title
             }
-            comment.id = commentId
 
-            console.log('update', comment)
-
-            const edited = await updateComment(comment)
-            console.log('response', edited)
+            await updateComment(comment)
         } catch (error) {
             console.error(error)
         }
@@ -96,7 +90,6 @@ export default function Comments () {
         setUpdating(true)
 
         const comment = comments.data.find((commentObj) => commentObj.id === id)
-        console.log(comment)
 
         setContent(comment.content)
         if (comment.title) {
@@ -104,6 +97,7 @@ export default function Comments () {
         } else {
             setTitle('')
         }
+        
         form.current.focus()
     }
 
@@ -135,25 +129,23 @@ export default function Comments () {
     return (<div>
         {token && (<div className="comment-form-container">
             {updating ?
-                    <>
-                        <h3>Update Your Comment</h3>
-                        <button onClick={() => endUpdate()}>Start a New Comment</button>
-                    </>
-                    : <>
-                        <h3>Leave a comment</h3>
-                    </>
+                <>
+                    <h3>Update Your Comment</h3>
+                    <button onClick={() => endUpdate()}>Start a New Comment</button>
+                </>
+                : <h3>Leave a comment</h3>
             }
             <form title="comment" onSubmit={handleSubmit}>
-
-                <label>Title:
-                    <input
+                <label>Title: <input
                         ref={form}
                         value={title}
                         onChange={(event) => {setTitle(event.target.value)}}
                     />
                 </label>
-                <label>Comment:
-                    <input
+                <label>Comment: <textarea
+                        rows={3}
+                        cols={25}
+                        maxLength={255}
                         value={content}
                         onChange={(event) => {setContent(event.target.value)}}
                     />

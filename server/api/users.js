@@ -36,6 +36,8 @@ router.post('/register', async (req, res, next) => {
             throw new Error('username is required to create an account')
         } else if (!password) {
             throw new Error('password is required to create an account')
+        } else if (!name) {
+            throw new Error('name is required to create an account')
         }
         
         const hashedPW = await bcrypt.hash(password, SALT)

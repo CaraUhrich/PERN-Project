@@ -8,7 +8,7 @@ export default function Artists () {
         return <div>Loading...</div>
     }
     if (isError) {
-        return <div>Error loading artists: {error.data.message}</div>
+        return <div>Error loading artists: {error.error}</div>
     }
 
     return (<div className="category-container">

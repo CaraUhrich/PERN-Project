@@ -33,7 +33,6 @@ async function createComment ({ title, content, lastUpdated, edited, paintingId,
 
 async function updateComment(id, fields) {
     try {
-        console.log(fields)
         const toUpdate = {}
         for (let column in fields) {
             if (fields[column] !== undefined) {

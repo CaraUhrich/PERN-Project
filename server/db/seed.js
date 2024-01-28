@@ -36,7 +36,7 @@ async function createTables () {
         CREATE TABLE artists (
             id SERIAL PRIMARY KEY,
             name varchar(50) UNIQUE NOT NULL,
-            bio varchar(200) NOT NULL,
+            bio TEXT NOT NULL,
             image TEXT NOT NULL,
             email varchar(50),
             link TEXT

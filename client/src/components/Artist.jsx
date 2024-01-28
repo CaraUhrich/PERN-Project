@@ -15,7 +15,7 @@ export default function Artist ({ id, size }) {
         return <div>Loading...</div>
     }
     if (isError) {
-        return <div>Error loading artist: {error.data.message}</div>
+        return <div>Error loading artist: {error.error}</div>
     }
 
     let paintingSize = 'small'

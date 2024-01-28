@@ -15,7 +15,7 @@ export default function Collection ({ id, size }) {
         return <div>Loading...</div>
     }
     if (isError) {
-        return <div>Error loading collection: {error.data.message}</div>
+        return <div>Error loading collection: {error.error}</div>
     }
 
     let paintingSize = 'small'

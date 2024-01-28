@@ -20,13 +20,13 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/paintings/:id' element={<SinglePainting />} />
+          <Route path='/paintings/search/:search' element={<Filter />} />
           <Route path='/artists' element={<Artists />} />
           <Route path='/artists/:id' element={<Artist size='large' />} />
           <Route path='/collections' element={<Collections />} />
           <Route path='/collections/:id' element={<Collection size='large' />} />
           <Route path='/users' element={<Users />} />
           <Route path='/users/account' element={<Account />} />
-          <Route path='/paintings/:search' element={<Filter />} />
         </Routes>
       </div>
     </>

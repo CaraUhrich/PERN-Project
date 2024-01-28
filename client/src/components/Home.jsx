@@ -18,7 +18,7 @@ export default function Home () {
 
         if (search) {
             setSearch(search.toLowerCase())
-            navigate(`/painting/${search}`)
+            navigate(`/paintings/search/${search}`)
         }
     }
 

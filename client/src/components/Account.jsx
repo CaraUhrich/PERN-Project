@@ -1,13 +1,11 @@
 import { useGetCurrentUserQuery, useGetUserSavesQuery, useDeleteSaveMutation  } from "../redux/nonantumGalleryApi"
-import RenderSinglePainting from "./RenderSinglePainting"
+import RenderSavedPainting from "./RenderSavedPainting"
 import { useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
 
 export default function Account () {
     const navigate = useNavigate()
     const token = useSelector((it) => it.state.token)
-
-    console.log(token)
 
     if (!token) {
         navigate('/users')
@@ -22,7 +20,11 @@ export default function Account () {
     }
 
     async function removeSave(saveId) {
-        await deleteSave({ id: saveId, token })
+        try {
+            await deleteSave({ id: saveId, token })
+        } catch (error) {
+            console.error(error)
+        }
     }
 
     return (<div>
@@ -33,7 +35,12 @@ export default function Account () {
                 <div className="painting-container">
                     {saves.data.map((save) => {
                         return (<div key={save.id} className="painting-medium">
-                            <RenderSinglePainting paintingId={save.paintingId} />
+                            <RenderSavedPainting paintingId={save.paintingId} />
+                            <button
+                                onClick={() => {
+                                    navigate(`/paintings/${save.paintingId}`)
+                                }}
+                            >Details</button>
                             <button onClick={() => removeSave(save.id)}>Remove From Saves</button>
                         </div>)
                     })}

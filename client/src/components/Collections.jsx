@@ -8,7 +8,7 @@ export default function Collections () {
         return <div>Loading...</div>
     }
     if (isError) {
-        return <div>Error loading collections: {error.data.message}</div>
+        return <div>Error loading collections: {error.error}</div>
     }
 
     return (<div className="category-container">

@@ -9,11 +9,9 @@ export default function SinglePainting () {
     const { id } = useParams()
     const token = useSelector((it) => it.state.token)
 
-    console.log('single painting', token)
-
     const [user, setUser] = useState()
     let isSaved = false
-    let saveId = false
+    let saveId = 0
 
     const painting = useGetSinglePaintingQuery(id)
     const [createSave, saveCreation] = useCreateSaveMutation()
@@ -76,7 +74,8 @@ export default function SinglePainting () {
         <div className="info">
             <h3>Title: {painting.data.title}</h3>
             <p>{painting.data.description}</p>
-            <p>Artist: <Link to={`/artists/${painting.data.artistId}`} >{painting.data.artist.name}</Link></p>
+            <p>Artist: <Link to={`/artists/${painting.data.artistId}`} >{painting.data.artist.name}</Link>
+            </p>
             {painting.data.collectionId && (
                 <p>Collection: <Link to={`/collections/${painting.data.collectionId}`} >{painting.data.collection.title}</Link></p>
             )}
