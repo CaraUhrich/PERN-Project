@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 export const nonantumGalleryApi = createApi({
     reducerPath: 'nonantumGalleryApi',
     baseQuery: fetchBaseQuery({
-        baseUrl: `http://localhost:8080/api`,
+        baseUrl: `https://nonantumgallery.onrender.com/api/`,
         prepareHeaders(headers) {
             headers.set('Content-type', 'application/json');
             return headers;
