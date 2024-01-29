@@ -24,7 +24,7 @@ export default function Comments () {
     
     async function fetchUser() {
         try {
-            const res = await fetch('http://localhost:8080/api/users', {
+            const res = await fetch('https://nonantumgallery.onrender.com/api/users', {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
