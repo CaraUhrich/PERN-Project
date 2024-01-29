@@ -33,31 +33,31 @@ export default function CreateAccount () {
 
     return (
         <form title='Create Account Form' onSubmit={handleSubmit}>
-                <h3>Create An Account</h3>
-                {isError && <p>{error.data.message}</p>}
-                <label>Name: 
-                    <input
-                        value={name}
-                        onChange={(event) => {setName(event.target.value)}}
-                    />
-                </label>
-                    <br/>
-                <label>Username: 
-                    <input
-                        value={username} 
-                        onChange={(event) => {setUsername(event.target.value)}}
-                    />
-                </label>
-                    <br/>
-                <label>Password: 
-                    <input
-                        value={password}
-                        type='password'
-                        onChange={(event) => {setPassword(event.target.value)}}
-                    />
-                </label>
-                <br/>
-                <button type="submit">Sign in</button>
-            </form>
+            <h3>Create An Account</h3>
+            {isError && <p>{error.data.message}</p>}
+            <label>Name: 
+                <input
+                    value={name}
+                    onChange={(event) => {setName(event.target.value)}}
+                />
+            </label>
+            <br/>
+            <label>Username: 
+                <input
+                    value={username} 
+                    onChange={(event) => {setUsername(event.target.value)}}
+                />
+            </label>
+            <br/>
+            <label>Password: 
+                <input
+                    value={password}
+                    type='password'
+                    onChange={(event) => {setPassword(event.target.value)}}
+                />
+            </label>
+            <br/>
+            <button type="submit">Sign in</button>
+        </form>
     )
 }

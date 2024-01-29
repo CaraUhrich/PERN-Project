@@ -13,7 +13,10 @@ export default function Collections () {
 
     return (<div className="category-container">
     {
-        data.map((collection) => (<Collection id={collection.id} size='small' />))
+        data.map((collection) => (<div className="collections" key={collection.id}>
+            <Collection id={collection.id} size='small' />
+            <br />
+        </div>))
     }
 </div>)
 }

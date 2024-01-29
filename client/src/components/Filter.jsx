@@ -24,9 +24,8 @@ export default function Filter() {
                 </>
                 : <>
                     <h3>No painting titles were found containing: {search}</h3>
-                    <button onClick={() => navigate('/')}>Back to All Paintings</button>
+                    <button onClick={() => navigate('/paintings')}>Back to All Paintings</button>
                 </>
         }
-        
     </div>)
 }

@@ -24,12 +24,15 @@ export default function Collection ({ id, size }) {
     }
 
     return (<div className={`category-${size}`} key={id}>
-        <h3>{data.title}</h3>
-        {
-            size === 'small' && (
-                <button onClick={() => navigate(`/collections/${id}`)}>Go to Collection</button>
-            )
-        }
+        <div>
+            <h3>{data.title}</h3>
+            {
+                size === 'small' && (
+                    <button onClick={() => navigate(`/collections/${id}`)}>Go to Collection</button>
+                )
+            }
+        </div>
+        
         <RenderPaintings paintings={data.paintings} size={paintingSize}/>
     </div>)
 }

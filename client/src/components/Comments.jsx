@@ -126,7 +126,7 @@ export default function Comments () {
         return date.toLocaleDateString(undefined, dateType)
     }
 
-    return (<div>
+    return (<div className="comments-container">
         {token && (<div className="comment-form-container">
             {updating ?
                 <>
@@ -142,6 +142,7 @@ export default function Comments () {
                         onChange={(event) => {setTitle(event.target.value)}}
                     />
                 </label>
+                <br />
                 <label>Comment: <textarea
                         rows={3}
                         cols={25}
@@ -150,6 +151,7 @@ export default function Comments () {
                         onChange={(event) => {setContent(event.target.value)}}
                     />
                 </label>
+                <br />
                 {updating ?
                     <button type="submit">Save Changes</button>
                     : <button type="submit">Submit</button>
@@ -157,7 +159,7 @@ export default function Comments () {
             </form>
         </div>)}
         {hasComments && (
-            <div className="comment-containter">
+            <div className="comment-containter" >
                 {comments.data.map((comment) => {
                     return (<div className="comment" key={comment.id}>
                         {comment.title && <h5>{comment.title}</h5>}

@@ -12,7 +12,7 @@ export default function Navbar () {
 
     function logout () {
         if (location.pathname === '/users/account') {
-            navigate('/')
+            navigate('/users')
         }
 
         console.log('logging out')
@@ -21,19 +21,24 @@ export default function Navbar () {
     }
 
     return(<nav>
-        <h1>Nonantum Gallery</h1>
         <div className='links'>
-            <Link to={'/'}>Paintings</Link>
+            <Link to={'/'}>Home</Link>
+            <br />
+            <Link to={'/paintings'}>Paintings</Link>
+            <br />
             <Link to={'/artists'}>Artists</Link>
+            <br />
             <Link to={'/collections'}>Collections</Link>
+            <br />
             {
-                token ?
-                <Link to={'/users/account'}>Account</Link> :
-                <Link to={'/users'}>Login</Link>
+                token ? <>
+                    <Link to={'/users/account'}>Account</Link>
+                    <br />
+                    <a onClick={() => logout()}>Logout</a>
+                </>
+                : <Link to={'/users'}>Login</Link>
             }
-            {token && (
-                <a onClick={() => logout()}>Logout</a>
-            )}
         </div>
+        <h1>Nonantum Gallery</h1>
     </nav>)
 }

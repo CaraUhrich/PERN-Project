@@ -13,7 +13,10 @@ export default function Users () {
 
     return(<>
         <h2>Sign in or Create a User Account</h2>
-        <Login />
-        <CreateAccount />
+        <div className="users">
+            <Login />
+            <CreateAccount />
+        </div>
+        
     </>)
 }

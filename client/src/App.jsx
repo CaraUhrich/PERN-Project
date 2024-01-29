@@ -10,6 +10,7 @@ import Collections from './components/Collections'
 import Filter from './components/Filter'
 import Account from './components/Account'
 import SinglePainting from './components/SinglePainting'
+import AllPaintings from './components/AllPaintings'
 
 function App() {
   
@@ -19,6 +20,7 @@ function App() {
       <div>
         <Routes>
           <Route path='/' element={<Home />} />
+          <Route path='paintings/' element={<AllPaintings />} />
           <Route path='/paintings/:id' element={<SinglePainting />} />
           <Route path='/paintings/search/:search' element={<Filter />} />
           <Route path='/artists' element={<Artists />} />

@@ -9,7 +9,7 @@ export default function SinglePainting () {
     const { id } = useParams()
     const token = useSelector((it) => it.state.token)
 
-    const [user, setUser] = useState()
+    const [user, setUser] = useState({})
     let isSaved = false
     let saveId = 0
 
@@ -36,7 +36,7 @@ export default function SinglePainting () {
         fetchUser()
     }, [token])
 
-    if (token && painting.isSuccess) {
+    if (token && painting.isSuccess && user.id) {
         painting.data.saves.forEach(save => {
             if(save.userId === user.id) {
                 isSaved = true
@@ -69,7 +69,7 @@ export default function SinglePainting () {
         }
     }
 
-    return (<div className="single-painting">
+    return (<div className="single-img">
         <img src={painting.data.image} alt={painting.data.description} />
         <div className="info">
             <h3>Title: {painting.data.title}</h3>
@@ -79,15 +79,16 @@ export default function SinglePainting () {
             {painting.data.collectionId && (
                 <p>Collection: <Link to={`/collections/${painting.data.collectionId}`} >{painting.data.collection.title}</Link></p>
             )}
-        </div>
-        {!token ?
+            {!token ?
             <button onClick={() => navigate('/users')} >Log in to save and comment</button> 
             : <>
                 {isSaved ?
                     <button onClick={() => unSave()} >Remove from Saves</button>
                     : <button onClick={() => addSave()}>Save</button>
                 }
-            </>}
-        <Comments />        
+            </>
+        }
+        </div>
+        <Comments />
     </div>)
 }

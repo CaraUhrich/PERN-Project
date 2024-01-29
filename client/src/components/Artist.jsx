@@ -19,21 +19,27 @@ export default function Artist ({ id, size }) {
     }
 
     let paintingSize = 'small'
+    let className = 'painting medium'
     if (size === 'large') {
         paintingSize = 'medium'
+        className = 'home'
     }
     
     return (<div className={`category-${size}`} key={id}>
-        <h3>{data.name}</h3>
-        <img src={data.image} alt={data.name} />
-        {
-            size === 'small' ?
-                <button onClick={() => navigate(`/artists/${id}`)}>Details</button>
-                : <>
-                    <p>{data.bio}</p>
-                    {data.link && (<a href={data.link}>External Artist Link</a>)}
-                </>
-        }
+        <div className={className}>
+            <img src={data.image} alt={data.name} />
+            <div className="info">
+                <h3>{data.name}</h3>
+                {
+                    size === 'small' ?
+                        <button onClick={() => navigate(`/artists/${id}`)}>Go to Artist</button>
+                        : <>
+                            <p>{data.bio}</p>
+                            {data.link && (<a href={data.link}>External Artist Link</a>)}
+                        </>
+                }
+            </div>
+        </div>
         <RenderPaintings paintings={data.paintings} size={paintingSize}/>
     </div>)
 } 

@@ -6,9 +6,9 @@
 const collections = [
     'Slug Trails',
     'Clue',
-    'The Triptic',
+    'The Triptych',
     'Never Say Never',
-    'Recylcing',
+    'Recycling',
     'Cult Classics',
     'Redacted',
     'Florida, Man',
@@ -18,17 +18,19 @@ const collections = [
 
 //Artists require: name, bio, image. may contain: email, link
 const artists = [
-    {name: 'Cara Uhrich', bio: 'Pandemic Artist!', image: 'https://i.imgur.com/mzrbbFT.jpg', email: 'carauhrich@gmail.com'},
-    {name: 'Kirsten Brink', bio: 'Chaos!', image: 'placeholder', link: 'https://www.instagram.com/chaosbykay?igsh=OHI3eGJ2YTR4dmhk'},
-    {name: 'Ryanne McEvoy', bio: 'Follow the Flow', image: 'placeholder'}
-    {name: 'Jenny Wicks', bio: 'Exciting!', image: 'https://i.imgur.com/QpfVCiK.jpg'}
+    {name: 'Cara Uhrich', bio: 'Cara Uhrich draws inspiration from nature to produce her characteristic flowing brush strokes and effortless color schemes. Working in acrylic, she experiments with a range of painting implements to stamp, roll, swipe, and sponge unique textures onto canvas. Cara is known for her compositions, which often frame recognizable subjects in disorienting ways, forcing viewers to reconsider the act of seeing itself.', image: 'https://i.imgur.com/mzrbbFT.jpg', email: 'carauhrich@gmail.com'},
+    {name: 'Kirsten Brink', bio: 'Abstract painter Kirsten Brink believes in play as a foundational approach to each of her works. She is inspired by color, texture, form, and flow, and uses a range of conventional and unconventional implements to blend her distinctive color palettes. Kirsten works primarily in acrylic on canvas, leveraging metallics and an intuitive sense of color theory to produce evocative, moody compositions. Her work conjures images of otherworldly spaces, while retaining the serene rhythms of water, wind, and other natural phenomena.', image: 'https://i.imgur.com/cSjKU30.jpg', link: 'https://www.instagram.com/chaosbykay?igsh=OHI3eGJ2YTR4dmhk'},
+    {name: 'Ryanne McEvoy', bio: 'Painter and collage artist Ryanne McEvoy favors high-contrast experimental compositions that recall the loud prints of 80s and 90s fashion. Her methodology could be described as improvisational; she often chooses colors and implements at random to discover what they inspire while in process. Ryanne works in acrylic on canvas, using various paint media and a combination of techniques to develop unique chemical and textural effects. One of her favorite tools is gravity itself, which she uses in combination with pouring media to add drips, spirals, marbling, and stretches to her colorful abstract works.', image: 'https://i.imgur.com/HBBO8dT.jpg'},
+    {name: 'Jenny Wicks', bio: 'As a jewelry-maker and painter, Jenny Wicks aims to reintroduce balance, beauty, and symmetry into a chaotic world. During the Covid-19 quarantine, she primarily worked in acrylic on canvas to create both abstract and realistic landscapes that remind her of sunsets over Wilson Lake at her family home in Maine. Currently based in Boston, Jenny creates increasingly experimental designs that capture chaos and balance in a range of proportions. In “The Evolution of Blob,” Jenny demonstrates her keen ability to produce order in extremity and her “Nothing Good Happens After 2am” brings chaotic instability back into a peaceful, yet dark setting.', image: 'https://i.imgur.com/QpfVCiK.jpg'}
 ]
 
 //Paintings require: Title, image, description, available, artistId. May contain: collectionId
 const paintings = [
     {title: '144146', image: 'https://i.imgur.com/kh2WYnR.jpg', description: 'Acrylic on canvas board', available: true, artistId: 3},
     {title: "90's Bus Seat", image: 'https://i.imgur.com/EpRmaJ7.jpg', description: 'Acrylic on canvas', available: true, artistId: 3},
+    {title: 'Alt Altarpiece', image: 'https://i.imgur.com/O3h9hqN.jpg', description: 'Acrylic on canvas', available: true, artistId: 2},
     {title: 'Altered Alt Altarpiece', image: 'https://i.imgur.com/sc69MEK.jpg', description: 'Acrylic on canvas', available: true, artistId: 3},
+    {title: 'An Enemy', image: 'https://i.imgur.com/ntZzW4c.jpg', description: 'Watercolor on paper', available: true, artistId: 1},
     {title: 'A Time to Reflect', image: 'https://i.imgur.com/N16zyS6.jpg', description: 'Acrylic on canvas', available: true, artistId: 4},
     {title: 'Anti Slug Trails', image: 'https://i.imgur.com/G15rXye.jpg', description: 'Acrylic on canvas vertical panel', available: false, artistId: 1, collectionId: 1},
     {title: 'Autumn', image: 'https://i.imgur.com/T3McPBX.jpg', description: 'Acrylic on canvas', available: true, artistId: 1},
@@ -42,8 +44,10 @@ const paintings = [
     {title: 'Bubble Theory', image: 'https://i.imgur.com/pj3QuIn.jpg', description: 'Acrylic on canvas board', available: true, artistId: 3},
     {title: 'Chameleon', image: 'https://i.imgur.com/MbHBY6k.jpg', description: 'Acrylic on canvas', available: true, artistId: 1},
     {title: 'Celebration', image: 'https://i.imgur.com/Pelc3rd.jpg', description: 'Acrylic on canvas', available: true, artistId: 1},
+    {title: 'Change', image: 'https://i.imgur.com/I3FASLI.jpg', description: 'Acrylic on canvas', available: true, artistId: 1},
     {title: "Chiffon en l'Eau", image: 'https://i.imgur.com/Uk7BqD4.jpg', description: 'Acrylic pouring paint on canvas', available: true, artistId: 3},
     {title: 'Chromatograph', image: 'https://i.imgur.com/Gnc3ipg.jpg', description: 'Acrylic on canvas', available: true, artistId: 3},
+    {title: 'The Clash', image: 'https://i.imgur.com/wPzTauG.jpg', description: 'Acrylic on canvas', available: false, artistId: 2},
     {title: 'Cloud Cover', image: 'https://i.imgur.com/N8hUpQV.jpg', description: 'Acrylic on canvas horizontal panel', available: false, artistId: 1},
     {title: 'Cross-Section', image: 'https://i.imgur.com/BhUHfOU.jpg', description: 'Acrylic pouring paint on canvas board', available: true, artistId: 3},
     {title: 'Colonel Mustard', image: 'https://i.imgur.com/KRR49fw.jpg', description: 'Acrylic on canvas board', available: true, artistId: 1, collectionId: 2},
@@ -69,7 +73,7 @@ const paintings = [
     {title: 'Forest Floor', image: 'https://i.imgur.com/1Nn53Qe.jpg', description: 'Acrylic on canvas board', available: true, artistId: 1},
     {title: 'F(r)og', image: 'https://i.imgur.com/YsRCy0U.jpg', description: 'Acrylic on canvas', available: false, artistId: 3, collectionId: 8},
     {title: 'Froider', image: 'https://i.imgur.com/MIRSmkq.jpg', description: 'Acrylic on canvas vertical panel. A perminent piece of the Nonantum Collection', available: false, artistId: 1, collectionId: 3},
-    {title: 'Foot Locker', image: 'https://i.imgur.com/QpfVCiK.jpg', description: 'Acrylic on canvas', available: true, artistId: 3},
+    {title: 'Foot Locker', image: 'https://i.imgur.com/3anVaRu.jpg', description: 'Acrylic on canvas', available: true, artistId: 3},
     {title: 'Garden', image: 'https://i.imgur.com/KCjB2OW.jpg', description: 'Acrylic on canvas', available: true, artistId: 1},
     {title: 'Geodes', image: 'https://i.imgur.com/Tys7tNG.jpg', description: 'Acrylic on canvas board. On display at the Tremont Gallery', available: false, artistId: 1},
     {title: 'Goth Girlfriend', image: 'https://i.imgur.com/DvSwE2i.jpg', description: 'Acrylic on canvas', available: false, artistId: 3, collectionId: 6},
@@ -85,6 +89,8 @@ const paintings = [
     {title: 'Intertwined', image: 'https://i.imgur.com/Ut1jKiI.jpg', description: 'Acrylic on canvas', available: true, artistId: 1},
     {title: 'Into the Spiderverse', image: 'https://i.imgur.com/wun9wpp.jpg', description: 'Acrylic pouring paint on canvas', available: true, artistId: 3},
     {title: "It's Friggin' Bats!", image: 'https://i.imgur.com/utt9Gp5.jpg', description: 'Acrylic on canvas', available: true, artistId: 4},
+    {title: 'It Comes in Waves', image: 'https://i.imgur.com/26Beg8T.jpg', description: 'Acrylic on canvas', available: false, artistId: 2},
+    {title: 'Joyce', image: 'https://i.imgur.com/HCLOdQ5.jpg', description: 'Acrylic on canvas', available: true, artistId: 4},
     {title: 'Jupiter', image: 'https://i.imgur.com/SSEhBLE.jpg', description: 'Acrylic on canvas', available: true, artistId: 3},
     {title: 'Lil Guy', image: 'https://i.imgur.com/QIzEJSq.jpg', description: 'Acrylic on canvas', available: true, artistId: 1},
     {title: 'Lady Luck', image: 'https://i.imgur.com/NJS19zc.jpg', description: 'Acrylic on canvas board', available: true, artistId: 1},
@@ -157,7 +163,7 @@ const paintings = [
     {title: 'Unkown Moss', image: 'https://i.imgur.com/gGDBjRU.jpg', description: 'Acrylic on canvas', available: true, artistId: 1},
     {title: 'Uzumaki', image: 'https://i.imgur.com/s3A85XX.jpg', description: 'Acrylic on canvas', available: false, artistId: 3},
     {title: 'Vestigial', image: 'https://i.imgur.com/LHV5o3v.jpg', description: 'Acrylic pouring paint on canvas', available: true, artistId: 3},
-    {title: 'Vorticies', image: 'https://i.imgur.com/ALWqnrs.jpg', description: 'Acrylic on canvas', available: true, artistId: 3},
+    {title: 'Vortices', image: 'https://i.imgur.com/ALWqnrs.jpg', description: 'Acrylic on canvas', available: true, artistId: 3},
     {title: 'Wake', image: 'https://i.imgur.com/jBFP41j.jpg', description: 'Acrylic on canvas', available: true, artistId: 3, collectionId: 4},
     {title: 'Wave', image: 'https://i.imgur.com/eCAubF7.jpg', description: 'Acrylic on canvas', available: true, artistId: 1},
     {title: 'Whirlpools', image: 'https://i.imgur.com/doOws6y.jpg', description: 'Acrylic on canvas', available: false, artistId: 2},

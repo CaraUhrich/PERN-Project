@@ -34,7 +34,7 @@ export default function Account () {
                 <h3>Your current saves:</h3>
                 <div className="painting-container">
                     {saves.data.map((save) => {
-                        return (<div key={save.id} className="painting-medium">
+                        return (<div key={save.id} className="painting medium">
                             <RenderSavedPainting paintingId={save.paintingId} />
                             <button
                                 onClick={() => {
@@ -49,7 +49,7 @@ export default function Account () {
             </>
             : <>
                 <h3>You currently have no saves</h3>
-                <button onClick={() => navigate('/')}>Back to All Paintings</button>
+                <button onClick={() => navigate('/paintings')}>Back to All Paintings</button>
             </>
         }
     </div>)
